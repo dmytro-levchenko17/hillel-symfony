@@ -45,6 +45,18 @@ services:
     environment:
       - VIRTUAL_HOST=hillel.local
 
+  hillel-mysql:
+    image: mysql:8
+    ports:
+      - 3306:3306
+    environment: 
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=hillel
+      - MYSQL_USER=hillel
+      - MYSQL_DATABASE=hillel_db
+    networks:
+      - hillel-site
+
 networks:
   hillel-site:
   reverse-proxy:
