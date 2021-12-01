@@ -9,6 +9,7 @@ RUN apk update && apk upgrade \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN mkdir /.composer
 RUN chmod -R 0777 /.composer
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 WORKDIR /app
 
