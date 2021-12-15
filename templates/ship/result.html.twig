@@ -1,0 +1,57 @@
+{% block result %}
+<h2 class="text-center mt-5">Столкновение:</h2>
+<div>
+    <p class="text-center">
+        <br>
+        {{ ship1Quantity }}
+        {{ ship1.name }}
+        VS.
+        {{ ship2Quantity }}
+        {{ ship2.name }}
+    </p>
+</div>
+<div class="result-box center-block">
+    <h3 class="text-center audiowide">
+        Winner:
+        {% if (outcome.WinningShip) %}
+            {{ outcome.WinningShip.name }}
+        {% else %}
+            Ничья
+        {% endif %}
+    </h3>
+    <p class="text-center">
+        {% if (outcome.WinningShip == null) %}
+            Корабли уничтожили друг друга в эпической битве.
+        {% else %}
+            The {{ outcome.WinningShip.name }}
+            {% if (outcome.isJediPowerUsed) %}
+                использовал свои Силу Джедая для ошеломляющей победы!
+            {% else %}
+                одолели и уничтожили 
+                {% if ( outcome.WinningShip.name == outcome.Ship1.name ) %}
+                    {{ outcome.Ship2.name }}
+                {% else %}
+                {{ outcome.Ship1.name }}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </p>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p>Осталось HP после битвы:</p>
+        </div>
+        {% if (outcome.WinningShip == null) %}
+            <div class="col-md-12 text-center">
+                <p>У обоих кораблей не осталось HP</p>
+            </div>
+        {% else %}
+            <div class="col-md-6 text-center">
+                <p>{{ outcome.Ship1.name }} : {{ outcome.Ship1HP }}</p>
+            </div>
+            <div class="col-md-6 text-center">
+                <p>{{ outcome.Ship2.name }} : {{ outcome.Ship2HP }}</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

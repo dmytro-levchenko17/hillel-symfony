@@ -21,12 +21,96 @@
                 {% for ship in ships %}
                     <tr>
                         <td>{{ ship.name }}</td>
-                        <td>{{ ship.weapon_power }}</td>
-                        <td>{{ ship.jedi_factor }}</td>
+                        <td>{{ ship.weaponPower }}</td>
+                        <td>{{ ship.jediFactor }}</td>
                         <td>{{ ship.strength }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+        <div class="battle-box center-block border">
+            <div>
+                <form method="POST">
+                    <h2 class="text-center">Миссия</h2>
+                    <input class="center-block form-control text-field" type="text" id="ship1_quantity" name="ship1_quantity" placeholder="Enter Number of Ships" />
+                    <select class="center-block form-control btn drp-dwn-width btn-default dropdown-toggle" id="ship1_id" name="ship1_id">
+                        <option value="">Выберите корабль</option>
+                        {% for ship in ships %}
+                            <option value="{{ ship.id }}">{{ ship.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <p class="text-center">Противник</p>
+                    <br>
+                    <input class="center-block form-control text-field" type="text" id="ship2_quantity" name="ship2_quantity" placeholder="Enter Number of Ships" />
+                    <select class="center-block form-control btn drp-dwn-width btn-default dropdown-toggle" id="ship2_id" name="ship2_id">
+                        <option value="">Выберите корабль</option>
+                        {% for ship in ships %}
+                            <option value="{{ ship.id }}">{{ ship.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <button class="btn btn-md btn-danger center-block" type="submit">В атаку!</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="result"></div>
+
+        <a href="#" id="game-again"><p class="text-center"><i class="fa fa-undo"></i> Снова в бой</p></a>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script>
+    $(function () {
+       $('form').on('submit', function (e) {
+        // using this page stop being refreshing 
+        e.preventDefault(); 
+
+        var ship1Id = $('#ship1_id').val();
+        var ship2Id = $('#ship2_id').val();
+        var ship1Quantity = $('#ship1_quantity').val();
+        var ship2Quantity = $('#ship2_quantity').val();
+        var result = $('#result'); 
+
+        var data = {
+            'ship1' : ship1Id,
+            'ship2' : ship2Id,
+            'ship1Q' : ship1Quantity,
+            'ship2Q' : ship2Quantity
+        }
+             $.ajax({
+                type: 'POST',
+                url: 'battle',
+                data: data,
+                success: function (output) { 
+                    result.html(output);    
+                }, 
+                complete: function () { 
+                    $('html, body').animate({ 
+                        scrollTop: result.offset().top 
+                    }, { 
+                        duration: 1000, 
+                        easing: "linear" 
+                    }); 
+                } 
+            });
+        });
+
+         $('#game-again').on('click', function (e) {
+            e.preventDefault(); 
+            var header = $('.page-header'); 
+            $('html, body').animate({ 
+                scrollTop: header.offset().top 
+            }, { 
+                duration: 1000, 
+                easing: "linear" 
+            }); 
+        });
+    });
+
+</script>
 {% endblock %}
