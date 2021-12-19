@@ -5,10 +5,11 @@
 {% block body %}
     <div class="container">
         <div class="page-header">
-            <h1>Космическая битва</h1>
+            <h1>{{pageTitle|markdown}}</h1>
+            {{battleDesc|raw}}
         </div>
         <table class="table table-hover">
-            <caption><i class="fa fa-rocket"></i> Корабли готовы к следующей Миссии</caption>
+            <caption><i class="fa fa-rocket"></i> {{battleTitle|markdown}}</caption>
             <thead>
                 <tr>
                     <th>Корабль</th>
@@ -28,11 +29,15 @@
                 {% endfor %}
             </tbody>
         </table>
+        {{iDontKnow2|markdown}}
 
         <div class="battle-box center-block border">
             <div>
                 <form method="POST">
-                    <h2 class="text-center">Миссия</h2>
+                    <h2 class="text-center">{{mission|markdown}}</h2>
+                    <div class="text-center">
+                        {{selectShip|markdown}}
+                    </div>
                     <input class="center-block form-control text-field" type="text" id="ship1_quantity" name="ship1_quantity" placeholder="Enter Number of Ships" />
                     <select class="center-block form-control btn drp-dwn-width btn-default dropdown-toggle" id="ship1_id" name="ship1_id">
                         <option value="">Выберите корабль</option>
@@ -41,7 +46,7 @@
                         {% endfor %}
                     </select>
                     <br>
-                    <p class="text-center">Противник</p>
+                    {{enemy|markdown}}
                     <br>
                     <input class="center-block form-control text-field" type="text" id="ship2_quantity" name="ship2_quantity" placeholder="Enter Number of Ships" />
                     <select class="center-block form-control btn drp-dwn-width btn-default dropdown-toggle" id="ship2_id" name="ship2_id">
@@ -51,14 +56,16 @@
                         {% endfor %}
                     </select>
                     <br>
-                    <button class="btn btn-md btn-danger center-block" type="submit">В атаку!</button>
+                    <button class="btn btn-md btn-danger center-block" type="submit">{{battleBtnTitle|markdown}}</button>
                 </form>
+                {{iDontKnow|markdown}}
             </div>
         </div>
 
         <div id="result"></div>
 
         <a href="#" id="game-again"><p class="text-center"><i class="fa fa-undo"></i> Снова в бой</p></a>
+        {{iDontKnow1|markdown}}
     </div>
 {% endblock %}
 
