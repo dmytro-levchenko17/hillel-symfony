@@ -4,11 +4,26 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Common\Filter\SearchFilterInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\AnswerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=AnswerRepository::class)
+ * 
+ * @ApiResource(
+ *  collectionOperations={"get"={"normalization_context"={"groups"="answer:list"}}},
+ *  itemOperations={"get"={"normalization_context"={"groups"="answer:read", "answer:item:get"}}},
+ *  attributes={"pagination_items_per_page"="10"},
+ * )
  */
 class Answer
 {
@@ -25,11 +40,17 @@ class Answer
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @Groups({"answer:read", "answer:write"})
      */
     private ?string $content = null;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Assert\NotBlank
+     * 
+     * @Groups({"answer:read", "answer:write"})
      */
     private ?string $username = null;
 

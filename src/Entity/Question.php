@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Common\Filter\SearchFilterInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use App\Repository\TagRepository;
@@ -15,11 +24,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=QuestionRepository::class)
- */
+ *  
+ * @ApiResource(
+ *  collectionOperations={"get"={"normalization_context"={"groups"="question:list"}}},
+ *  itemOperations={"get"={"normalization_context"={"groups"="question:read", "question:item:get"}}},
+ *  attributes={"pagination_items_per_page"="10"},
+ * )
+ * 
+ * @ApiFilter(SearchFilter::class, properties={"answer": "exact"})
+*/
 class Question
 {
-//    use TimestampableEntity;
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -29,11 +44,17 @@ class Question
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Assert\NotBlank
+     * 
+     * @Groups({"question:read", "question:write"})
      */
     private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"question:read"})
      */
     private ?string $question = null;
 
@@ -45,6 +66,8 @@ class Question
     /**
      * @ORM\Column(type="string", length=255)
      * @Gedmo\Slug(fields={"name"})
+     * 
+     * @Groups({"question:read"})
      */
     private $slug;
 
@@ -145,11 +168,6 @@ class Question
     public function getAnswers(): Collection
     {
         return $this->answers;
-    }
-
-    public function getApprovedAnswers(): Collection
-    {
-        return $this->answers->matching(AnswerRepository::createApprovedCriteria());
     }
 
     public function addAnswer(Answer $answer): self
