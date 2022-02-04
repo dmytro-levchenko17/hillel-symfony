@@ -1,4 +1,18 @@
 {
+    "api-platform/core": {
+        "version": "2.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "05b57782a78c21a664a42055dc11cf1954ca36bb"
+        },
+        "files": [
+            "config/packages/api_platform.yaml",
+            "config/routes/api_platform.yaml",
+            "src/Entity/.gitignore"
+        ]
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
     },
@@ -106,6 +120,9 @@
     "fakerphp/faker": {
         "version": "v1.19.0"
     },
+    "fig/link-util": {
+        "version": "1.2.0"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
@@ -133,11 +150,44 @@
     "laminas/laminas-code": {
         "version": "4.4.3"
     },
+    "lcobucci/clock": {
+        "version": "2.1.0"
+    },
+    "lcobucci/jwt": {
+        "version": "4.1.5"
+    },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.14",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "5b2157bcd5778166a5696e42f552ad36529a07a6"
+        },
+        "files": [
+            "config/packages/lexik_jwt_authentication.yaml"
+        ]
+    },
     "michelf/php-markdown": {
         "version": "1.9.1"
     },
     "monolog/monolog": {
         "version": "2.3.5"
+    },
+    "namshi/jose": {
+        "version": "7.2.3"
+    },
+    "nelmio/cors-bundle": {
+        "version": "2.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "6bea22e6c564fba3a1391615cada1437d0bde39c"
+        },
+        "files": [
+            "config/packages/nelmio_cors.yaml"
+        ]
     },
     "nikic/php-parser": {
         "version": "v4.13.1"
@@ -160,6 +210,18 @@
     "php-http/promise": {
         "version": "1.1.0"
     },
+    "phpdocumentor/reflection-common": {
+        "version": "2.2.0"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "5.3.0"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "1.6.0"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "1.2.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -177,6 +239,9 @@
     },
     "psr/http-message": {
         "version": "1.0.1"
+    },
+    "psr/link": {
+        "version": "1.1.1"
     },
     "psr/log": {
         "version": "1.1.4"
@@ -289,6 +354,9 @@
     "symfony/event-dispatcher-contracts": {
         "version": "v2.5.0"
     },
+    "symfony/expression-language": {
+        "version": "v5.3.14"
+    },
     "symfony/filesystem": {
         "version": "v5.3.4"
     },
@@ -392,6 +460,9 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.23.1"
     },
+    "symfony/polyfill-php56": {
+        "version": "v1.20.0"
+    },
     "symfony/polyfill-php73": {
         "version": "v1.23.0"
     },
@@ -435,7 +506,31 @@
     "symfony/runtime": {
         "version": "v5.3.11"
     },
+    "symfony/security-bundle": {
+        "version": "5.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.3",
+            "ref": "09b5e809bd7a992061febd05b797c64a2d93b5cd"
+        },
+        "files": [
+            "config/packages/security.yaml"
+        ]
+    },
     "symfony/security-core": {
+        "version": "v5.3.14"
+    },
+    "symfony/security-csrf": {
+        "version": "v5.3.14"
+    },
+    "symfony/security-guard": {
+        "version": "v5.3.14"
+    },
+    "symfony/security-http": {
+        "version": "v5.3.14"
+    },
+    "symfony/serializer": {
         "version": "v5.3.14"
     },
     "symfony/service-contracts": {
@@ -498,6 +593,9 @@
     "symfony/var-exporter": {
         "version": "v5.3.11"
     },
+    "symfony/web-link": {
+        "version": "v5.3.14"
+    },
     "symfony/web-profiler-bundle": {
         "version": "5.3",
         "recipe": {
@@ -523,6 +621,12 @@
     },
     "twig/twig": {
         "version": "v3.3.3"
+    },
+    "webmozart/assert": {
+        "version": "1.10.0"
+    },
+    "willdurand/negotiation": {
+        "version": "3.1.0"
     },
     "zenstruck/assert": {
         "version": "v1.0.0"
